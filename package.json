@@ -1,0 +1,35 @@
+{
+  "name": "bluetooth-autoconnect",
+  "version": "0.0.1",
+  "description": "Node script that will autoconnect trusted bluetooth devices as they become available",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexpercsi/bluetooth-autoconnect.git"
+  },
+  "keywords": [
+    "Node",
+    "Bluetooth",
+    "Debian",
+    "Raspberry",
+    "Pi"
+  ],
+  "author": "Alex Percsi",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/alexpercsi/bluetooth-autoconnect/issues"
+  },
+  "homepage": "https://github.com/alexpercsi/bluetooth-autoconnect#readme",
+  "dependencies": {
+    "filewatcher": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1"
+  }
+}
