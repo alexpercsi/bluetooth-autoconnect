@@ -1,0 +1,1 @@
+bluetoothctl > /tmp/bluetooth.log 2> /tmp/bluetooth.err
