@@ -16,10 +16,9 @@ const initializeStatusMonitoring = () => {
     console.log("spawning child process");
     var child = spawn('bluetoothctl');
     child.stdout.on('data', (data) => {
-        let inputs = data.toString().split("\n");
+        let inputs = data.toString().split("\n").slice(1);
         console.log(`parsing ${inputs.length} inputs`);
         for (let i = 0; i < inputs.length; i++) {
-            console.log("Parsing:"+typeof inputs[i]);
             input(inputs[i], dataCallback);
         }
     });
