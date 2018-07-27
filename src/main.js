@@ -11,7 +11,7 @@ const ApplicationState = {
 
 
 const initializeStatusMonitoring = () => {
-    
+    console.log("spawning child process");
     var child = spawn('bluetoothctl');
     child.stdout.on('data', (data) => { input(data, dataCallback)} );
     child.stderr.on('data', (data) => { error(data, errorCallback)} );
@@ -24,7 +24,9 @@ const initializeRunLoop = () => {
 }
 
 const runLoop = () => {
+    console.log("RunLoop"+Date.now)
     if (!ApplicationState.deviceConnected) {
+        console.log("No device connected");
         let lastDeviceTried = ApplicationState.lastDeviceTried;
         if (!lastDeviceTried && ApplicationState.trustedDevices.length > 0) {
             lastDeviceTried = ApplicationState.trustedDevices[0];
