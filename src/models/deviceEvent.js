@@ -16,6 +16,5 @@ export default class DeviceEvent {
             this[eventName] = eventValue;
         }
 
-        console.log (arguments.join(' '));
     }
 }

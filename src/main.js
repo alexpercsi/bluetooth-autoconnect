@@ -15,7 +15,12 @@ const ApplicationState = {
 const initializeStatusMonitoring = () => {
     console.log("spawning child process");
     var child = spawn('bluetoothctl');
-    child.stdout.on('data', (data) => {console.log("datastream eventcallback"); input(data, dataCallback)} );
+    child.stdout.on('data', (data) => {
+        let inputs = data.toString().split("\n");
+        for (let i = 0; i < inputs.length; i++) {
+            input(inputs[i], dataCallback);
+        }
+    });
     child.stderr.on('data', (data) => { error(data, errorCallback)} );
     child.stdin.setEncoding('utf-8');
     ApplicationState.bluetoothctlInputStream = child.stdin;

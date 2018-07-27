@@ -17,15 +17,16 @@ var convertYesNoToBoolean = function convertYesNoToBoolean(string) {
 };
 
 var DeviceEvent = function DeviceEvent(messageType, messageSubType, macAddress, eventString) {
-    for (var _len = arguments.length, data = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key < _len; _key++) {
-        data[_key - 4] = arguments[_key];
-    }
-
     _classCallCheck(this, DeviceEvent);
 
     this.messageType = messageType;
     this.messageSubType = messageSubType;
     this.macAddress = macAddress;
+
+    for (var _len = arguments.length, data = Array(_len > 4 ? _len - 4 : 0), _key = 4; _key < _len; _key++) {
+        data[_key - 4] = arguments[_key];
+    }
+
     this.data = data.join(' ');
 
     if (messageType === MessageTypes.CHANGE) {
@@ -34,8 +35,6 @@ var DeviceEvent = function DeviceEvent(messageType, messageSubType, macAddress, 
         var eventValue = convertYesNoToBoolean(eventData[1].trim());
         this[eventName] = eventValue;
     }
-
-    console.log(arguments.join(' '));
 };
 
 exports.default = DeviceEvent;

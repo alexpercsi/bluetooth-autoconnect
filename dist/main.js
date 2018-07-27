@@ -28,7 +28,10 @@ var initializeStatusMonitoring = function initializeStatusMonitoring() {
     console.log("spawning child process");
     var child = (0, _child_process.spawn)('bluetoothctl');
     child.stdout.on('data', function (data) {
-        console.log("datastream eventcallback");(0, _parser.input)(data, dataCallback);
+        var inputs = data.toString().split("\n");
+        for (var i = 0; i < inputs.length; i++) {
+            (0, _parser.input)(inputs[i], dataCallback);
+        }
     });
     child.stderr.on('data', function (data) {
         (0, _parser.error)(data, errorCallback);
