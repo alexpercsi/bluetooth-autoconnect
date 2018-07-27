@@ -32,7 +32,7 @@ var input = exports.input = function input(data, dataCallback) {
     console.log("Split data:");
     console.log(data);
     if (data.length > 1) {
-        switch (data[0]) {
+        switch (data[0].trim()) {
             case MessageTypes.NEW:
                 dataCallback(new (Function.prototype.bind.apply(_deviceEvent2.default, [null].concat([MessageTypes.NEW, data[1], data[2], false], _toConsumableArray(data.slice(3)))))());
                 break;
