@@ -2,14 +2,13 @@ import *  as MessageTypes from './messageTypes.js';
 import DeviceEvent from '../models/deviceEvent.js';
 
 export const input = (data, dataCallback) => {
-    console.log("attempting to parse data");
-    console.log(typeof data, data.toString());
-    if (!data || !data.toString) {
+    if (!data || !data.split) {
         dataCallback({});
     }
     console.log("parsing data:" + data);
     data = data.toString().split(' ');
-
+    console.log("Split data:");
+    console.log(data);
     if (data.length > 1) {
         switch(data[0]) {
             case MessageTypes.NEW:

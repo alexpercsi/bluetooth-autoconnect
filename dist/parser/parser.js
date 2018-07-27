@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.error = exports.input = undefined;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _messageTypes = require('./messageTypes.js');
 
 var MessageTypes = _interopRequireWildcard(_messageTypes);
@@ -22,14 +20,13 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var input = exports.input = function input(data, dataCallback) {
-    console.log("attempting to parse data");
-    console.log(typeof data === 'undefined' ? 'undefined' : _typeof(data), data.toString());
-    if (!data || !data.toString) {
+    if (!data || !data.split) {
         dataCallback({});
     }
     console.log("parsing data:" + data);
     data = data.toString().split(' ');
-
+    console.log("Split data:");
+    console.log(data);
     if (data.length > 1) {
         switch (data[0]) {
             case MessageTypes.NEW:
