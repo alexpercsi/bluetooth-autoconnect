@@ -20,10 +20,11 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var input = exports.input = function input(data, dataCallback) {
+    console.log("attempting to parse data");
+    console.log(data.toString());
     if (!data || !data.toString) {
         dataCallback({});
     }
-    console.log("attempting to parse data" + data.toString());
     data = data.toString().split(' ');
     if (data.length > 1) {
         switch (data[0]) {
@@ -31,7 +32,11 @@ var input = exports.input = function input(data, dataCallback) {
                 dataCallback(new (Function.prototype.bind.apply(_deviceEvent2.default, [null].concat([MessageTypes.NEW, data[1], data[2], false], _toConsumableArray(data.slice(3)))))());
                 break;
             case MessageTypes.CHG:
+                console.log("Parsing change event");
                 dataCallback(new (Function.prototype.bind.apply(_deviceEvent2.default, [null].concat([MessageTypes.CHANGE, data[1], data[2], data[3]], _toConsumableArray(data.slice(4)))))());
+                break;
+            default:
+                console.log("Failed to parse event", data.toString());
                 break;
         }
     } else {

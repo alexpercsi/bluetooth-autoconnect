@@ -2,10 +2,11 @@ import *  as MessageTypes from './messageTypes.js';
 import DeviceEvent from '../models/deviceEvent.js';
 
 export const input = (data, dataCallback) => {
+    console.log("attempting to parse data");
+    console.log(data.toString());
     if (!data || !data.toString) {
         dataCallback({});
     }
-    console.log("attempting to parse data"+data.toString());
     data = data.toString().split(' ');
     if (data.length > 1) {
         switch(data[0]) {
@@ -13,8 +14,12 @@ export const input = (data, dataCallback) => {
                 dataCallback(new DeviceEvent(MessageTypes.NEW, data[1], data[2], false, ...data.slice(3)));
             break;
             case MessageTypes.CHG:
+                console.log("Parsing change event");
                 dataCallback(new DeviceEvent(MessageTypes.CHANGE, data[1], data[2], data[3], ...data.slice(4)));
             break;
+            default:
+                console.log("Failed to parse event",data.toString());
+                break;
         }
     }
     else {
