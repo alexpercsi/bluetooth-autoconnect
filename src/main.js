@@ -1,25 +1,69 @@
-import { exec } from 'child_process'; 
+import { spawn } from 'child_process'; 
 
-import { Monitor } from 'monitor/monitor.js';
-import { input, error } from 'parser/parser.js';
+import * as MessageTypes from './parser/messageTypes.js';
+import { input, error } from './parser/parser.js';
 
-const init = () => {
 
-    
-
+const ApplicationState = {
+    deviceConnected: false,
+    trustedDevices: []
 }
+
 
 const initializeStatusMonitoring = () => {
     
-    var child = exec('bluetoothctl');
-    child.stdout.on('data', input.parseData(data, dataCallback));
-    child.stderr.on('data', input.handleError(data, errorCallback));
+    var child = spawn('bluetoothctl');
+    child.stdout.on('data', (data) => { input(data, dataCallback)} );
+    child.stderr.on('data', (data) => { error(data, errorCallback)} );
+    child.stdin.setEncoding('utf-8');
+    ApplicationState.bluetoothctlInputStream = child.stdin;
 }
 
-const dataCallback = (input) => {
-
+const initializeRunLoop = () => {
+    setTimeout(runLoop, 1000);
 }
 
-const errorCallback = (input) => {
+const runLoop = () => {
+    if (!ApplicationState.deviceConnected) {
+        let lastDeviceTried = ApplicationState.lastDeviceTried;
+        if (!lastDeviceTried && ApplicationState.trustedDevices.length > 0) {
+            lastDeviceTried = ApplicationState.trustedDevices[0];
+            ApplicationState.lastDeviceTried = lastDeviceTried;
+            ApplicationState.bluetoothctlInputStream.write(`connect ${lastDeviceTried}\n`);
+        }
+    }
+    setTimeout (runLoop, 1000);
+}
+
+const dataCallback = (deviceEvent) => {
+    switch (deviceEvent.messageType) {
+        case MessageTypes.NEW:
+        if (deviceEvent.messageSubType === "Device") {
+            trustedDevices.push(deviceEvent.macAddress);
+        }
+        break;
+        case MessageTypes.CHANGE:
+        if (deviceEvent.messageSubType === "Device") {
+            if (deviceEvent.Connected) {
+                ApplicationState.deviceConnected = deviceEvent.macAddress;
+            }
+            else {
+                ApplicationState.deviceConnected = false;
+            }
+        }
+    }
+}
+
+const errorCallback = (error) => {
     
 }
+
+export const init = () => {
+
+    initializeStatusMonitoring();
+    
+    initializeRunLoop();
+
+}
+
+init();
