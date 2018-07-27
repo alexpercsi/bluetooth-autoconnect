@@ -52,7 +52,7 @@ const dataCallback = (deviceEvent) => {
         case MessageTypes.NEW:
         if (deviceEvent.messageSubType === "Device") {
             console.log("Adding trusted device"+ deviceEvent.macAddress);
-            trustedDevices.push(deviceEvent.macAddress);
+            ApplicationState.trustedDevices.push(deviceEvent.macAddress);
         }
         break;
         case MessageTypes.CHANGE:
