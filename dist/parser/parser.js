@@ -27,21 +27,16 @@ var input = exports.input = function input(data, dataCallback) {
     if (!data || !data.split) {
         dataCallback({});
     }
-    console.log("parsing data:" + data);
     data = (0, _stripAnsi2.default)(data.toString()).split(' ').slice(1);
-    console.log("Split data:");
-    console.log(data);
     if (data.length > 1) {
         switch (data[0].trim()) {
             case MessageTypes.NEW:
                 dataCallback(new (Function.prototype.bind.apply(_deviceEvent2.default, [null].concat([MessageTypes.NEW, data[1], data[2], false], _toConsumableArray(data.slice(3)))))());
                 break;
             case MessageTypes.CHG:
-                console.log("Parsing change event");
                 dataCallback(new (Function.prototype.bind.apply(_deviceEvent2.default, [null].concat([MessageTypes.CHANGE, data[1], data[2], data[3]], _toConsumableArray(data.slice(4)))))());
                 break;
             default:
-                console.log("Failed to parse event", data.toString());
                 break;
         }
     } else {
