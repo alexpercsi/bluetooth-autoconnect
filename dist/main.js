@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.init = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _child_process = require('child_process');
 
 var _shelljs = require('shelljs');
@@ -28,9 +30,10 @@ var initializeStatusMonitoring = function initializeStatusMonitoring() {
     console.log("spawning child process");
     var child = (0, _child_process.spawn)('bluetoothctl');
     child.stdout.on('data', function (data) {
-        var inputs = data.toString().split("\n").slice(1);
+        var inputs = data.toString().split("\n");
         console.log('parsing ' + inputs.length + ' inputs');
         for (var i = 0; i < inputs.length; i++) {
+            console.log("Parsing:" + _typeof(inputs[i]));
             (0, _parser.input)(inputs[i], dataCallback);
         }
     });

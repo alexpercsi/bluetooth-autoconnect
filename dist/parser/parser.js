@@ -24,7 +24,7 @@ var input = exports.input = function input(data, dataCallback) {
         dataCallback({});
     }
     console.log("parsing data:" + data);
-    data = data.toString().split(' ');
+    data = data.toString().split(' ').slice(1);
     console.log("Split data:");
     console.log(data);
     if (data.length > 1) {
